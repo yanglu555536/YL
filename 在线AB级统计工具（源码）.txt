@@ -1,0 +1,561 @@
+
+import os
+import datetime
+import tkinter
+import tkinter.messagebox
+from tkinter import *
+import time
+from PIL import Image,ImageTk
+
+LOG_LINE_NUM = 0
+
+class MY_GUI():
+    def __init__(self,init_window_name):
+        self.init_window_name = init_window_name         #初始化窗口
+   # def get_image(filename,width,height):
+        
+    #    im=Image.open(filename).resize((width,height))
+    #   return ImageTk.PhotoImage(im)
+
+
+    #设置窗口
+    def set_init_window(yl):
+        yl.init_window_name.title("在线AB级片统计工具 v1.0")           #窗口名
+        #yl.init_window_name.geometry('320x160+10+10')                         #290 160为窗口大小，+10 +10 定义窗口弹出时的默认展示位置
+        yl.init_window_name.geometry('800x681+10+10')
+        #yl.init_window_name.open("D:\ls\1.jpg",800,681)
+        yl.init_window_name["bg"] = "grey"                                    #窗口背景色，可省略
+        yl.init_window_name.attributes("-alpha",1.8)                          #虚化，值越小虚化程度越高
+        #标签
+        yl.init_data_label = Label(yl.init_window_name, text="输入的时间段")
+        yl.init_data_label.grid(row=0, column=4)
+        yl.result_data_label = Label(yl.init_window_name, text="输出结果")
+        yl.result_data_label.grid(row=1, column=12)
+        yl.log_label = Label(yl.init_window_name, text="打印日志")
+        yl.log_label.grid(row=12, column=0)
+        #文本框
+        yl.init_data_Text = Text(yl.init_window_name, width=40, height=4)  #时间段 录入框
+        yl.init_data_Text.grid(row=1, column=0, rowspan=10, columnspan=10)
+
+        yl.result_data_Text = Text(yl.init_window_name, width=70, height=49)  #处理结果展示框
+        yl.result_data_Text.grid(row=1, column=12, rowspan=15, columnspan=10)
+
+        yl.log_data_Text = Text(yl.init_window_name, width=40, height=29)  #动态文本框
+        yl.log_data_Text.grid(row=13, column=0, columnspan=10)
+        #按钮
+        yl.str_trans_to_md5_button = Button(yl.init_window_name, text="启动", bg="lightblue", width=10,command=yl.jinqu)  # 调用内部方法  加()为直接调用
+        yl.str_trans_to_md5_button.grid(row=1, column=4)
+
+
+    #功能函数
+    def jinqu(yl):
+        src = yl.init_data_Text.get(1.0,END).replace("\n","")      #空格取代 \
+        #1A
+        try:
+           target_path=os.path.join(r"\\10.32.12.22\PVCTData\ClassA\2022_"+str(src))
+           all_content= os.listdir(target_path)
+           target_path2=os.path.join(r"\\10.32.12.22\PVCTData\ClassB\2022_"+str(src))
+           all_content2= os.listdir(target_path2)
+        except:
+            print("0")
+        #1B
+        try:
+           target_path3=os.path.join(r"\\10.32.12.23\PVCTData\ClassA\2022_"+str(src))
+           all_content3= os.listdir(target_path3)
+           target_path4=os.path.join(r"\\10.32.12.23\PVCTData\ClassB\2022_"+str(src))
+           all_content4= os.listdir(target_path4)
+        except:
+            print("0")
+        #2A
+        try:
+           target_path5=os.path.join(r"\\10.32.13.22\PVCTData\ClassA\2022_"+str(src))
+           all_content5= os.listdir(target_path5)
+           target_path6=os.path.join(r"\\10.32.13.22\PVCTData\ClassB\2022_"+str(src))
+           all_content6= os.listdir(target_path6)
+        except:
+            print("0")
+
+        #2B
+        try:
+           target_path7=os.path.join(r"\\10.32.13.23\PVCTData\ClassA\2022_"+str(src))
+           all_content7= os.listdir(target_path7)
+           target_path8=os.path.join(r"\\10.32.13.23\PVCTData\ClassB\2022_"+str(src))
+           all_content8= os.listdir(target_path8)
+        except:
+           print("0")
+
+        #3A
+        try:
+           target_path9=os.path.join(r"\\10.32.14.22\PVCTData\ClassA\2022_"+str(src))
+           all_content9= os.listdir(target_path9)
+           target_path10=os.path.join(r"\\10.32.14.22\PVCTData\ClassB\2022_"+str(src))
+           all_content10= os.listdir(target_path10)
+        except:
+           print("0")
+
+        #3B
+        try:
+           target_path11=os.path.join(r"\\10.32.14.23\PVCTData\ClassA\2022_"+str(src))
+           all_content11= os.listdir(target_path11)
+           target_path12=os.path.join(r"\\10.32.14.23\PVCTData\ClassB\2022_"+str(src))
+           all_content12= os.listdir(target_path12)
+        except:
+           print("0")
+
+        #4A
+        try:
+           target_path13=os.path.join(r"\\10.32.15.22\PVCTData\ClassA\2022_"+str(src))
+           all_content13= os.listdir(target_path13)
+           target_path14=os.path.join(r"\\10.32.15.22\PVCTData\ClassB\2022_"+str(src))
+           all_content14= os.listdir(target_path14)
+        except:
+           print("0")
+
+        #4B
+        try:
+           target_path15=os.path.join(r"\\10.32.15.23\PVCTData\ClassA\2022_"+str(src))
+           all_content15= os.listdir(target_path15)
+           target_path16=os.path.join(r"\\10.32.15.23\PVCTData\ClassB\2022_"+str(src))
+           all_content16= os.listdir(target_path16)
+        except:
+           print("0")
+
+        #5A
+        try:
+           target_path17=os.path.join(r"\\10.32.16.22\PVCTData\ClassA\2022_"+str(src))
+           all_content17= os.listdir(target_path17)
+           target_path18=os.path.join(r"\\10.32.16.22\PVCTData\ClassB\2022_"+str(src))
+           all_content18= os.listdir(target_path18)
+        except:
+           print("0")
+
+        #5B
+        try:
+           target_path19=os.path.join(r"\\10.32.16.23\PVCTData\ClassA\2022_"+str(src))
+           all_content19= os.listdir(target_path19)
+           target_path20=os.path.join(r"\\10.32.16.23\PVCTData\ClassB\2022_"+str(src))
+           all_content20= os.listdir(target_path20)
+        except:
+           print("0")
+
+        #6A
+        try:
+           target_path21=os.path.join(r"\\10.32.17.22\PVCTData\ClassA\2022_"+str(src))
+           all_content21= os.listdir(target_path21)
+           target_path22=os.path.join(r"\\10.32.17.22\PVCTData\ClassB\2022_"+str(src))
+           all_content22= os.listdir(target_path22)
+        except:
+           print("0")
+
+        #6B
+        try:
+           target_path23=os.path.join(r"\\10.32.17.23\PVCTData\ClassA\2022_"+str(src))
+           all_content23= os.listdir(target_path23)
+           target_path24=os.path.join(r"\\10.32.17.23\PVCTData\ClassB\2022_"+str(src))
+           all_content24= os.listdir(target_path24)
+        except:
+           print("0")
+
+        #7A
+        try:
+           target_path25=os.path.join(r"\\10.32.18.22\PVCTData\ClassA\2022_"+str(src))
+           all_content25= os.listdir(target_path25)
+           target_path26=os.path.join(r"\\10.32.18.22\PVCTData\ClassB\2022_"+str(src))
+           all_content26= os.listdir(target_path26)
+        except:
+           print("0")
+  
+        #7B
+        try:
+           target_path27=os.path.join(r"\\10.32.18.23\PVCTData\ClassA\2022_"+str(src))
+           all_content27= os.listdir(target_path27)
+           target_path28=os.path.join(r"\\10.32.18.23\PVCTData\ClassB\2022_"+str(src))
+           all_content28= os.listdir(target_path28)
+        except:
+           print("0")
+
+        #8A
+        try:
+           target_path29=os.path.join(r"\\10.32.19.22\PVCTData\ClassA\2022_"+str(src))
+           all_content29= os.listdir(target_path29)
+           target_path30=os.path.join(r"\\10.32.19.22\PVCTData\ClassB\2022_"+str(src))
+           all_content30= os.listdir(target_path30)
+        except:
+           print("0")
+
+        #8B
+        try:
+           target_path31=os.path.join(r"\\10.32.19.23\PVCTData\ClassA\2022_"+str(src))
+           all_content31= os.listdir(target_path31)
+           target_path32=os.path.join(r"\\10.32.19.23\PVCTData\ClassB\2022_"+str(src))
+           all_content32= os.listdir(target_path32)
+           
+        except:
+           print("0")
+
+        #9A
+        try:
+           target_path33=os.path.join(r"\\10.32.20.22\halm\PVCTData\ClassA\2022_"+str(src))
+           all_content33= os.listdir(target_path33)
+           target_path34=os.path.join(r"\\10.32.20.22\halm\PVCTData\ClassB\2022_"+str(src))
+           all_content34= os.listdir(target_path34)
+        except:
+           print("0")
+        
+        #9B
+        try:
+           target_path35=os.path.join(r"\\10.32.20.23\PVCTData\ClassA\2022_"+str(src))
+           all_content35= os.listdir(target_path35)
+           target_path36=os.path.join(r"\\10.32.20.23\PVCTData\ClassB\2022_"+str(src))
+           all_content36= os.listdir(target_path36)
+        except:
+           print("0")
+
+        #10A
+        try:
+            target_path37=os.path.join(r"\\10.32.21.22\PVCTData\ClassA\2022_"+str(src))
+            all_content37= os.listdir(target_path37)
+            target_path38=os.path.join(r"\\10.32.21.22\PVCTData\ClassB\2022_"+str(src))
+            all_content38= os.listdir(target_path38)
+        except:
+           print("0") 
+
+        #10B
+        try:
+           target_path39=os.path.join(r"\\10.32.21.23\PVCTData\ClassA\2022_"+str(src))
+           all_content39= os.listdir(target_path39)
+           target_path40=os.path.join(r"\\10.32.21.23\PVCTData\CIassB\2022_"+str(src))
+           all_content40= os.listdir(target_path40)
+        except:
+           print("0")
+
+        #11A
+        try:
+           target_path41=os.path.join(r"\\10.32.22.22\PVCTData\ClassA\2022_"+str(src))
+           all_content41= os.listdir(target_path41)
+           target_path42=os.path.join(r"\\10.32.22.22\PVCTData\ClassB\2022_"+str(src))
+           all_content42= os.listdir(target_path42)
+        except:
+           print("0")
+
+        #11B
+        try:
+           target_path43=os.path.join(r"\\10.32.22.23\PVCTData\ClassA\2022_"+str(src))
+           all_content43= os.listdir(target_path43)
+           target_path44=os.path.join(r"\\10.32.22.23\PVCTData\ClassB\2022_"+str(src))
+           all_content44= os.listdir(target_path44)
+        except:
+           print("0")
+
+        #12A
+        try:
+           target_path45=os.path.join(r"\\10.32.23.22\PVCTData\ClassA\2022_"+str(src))
+           all_content45= os.listdir(target_path45)
+           target_path46=os.path.join(r"\\10.32.23.22\PVCTData\ClassB\2022_"+str(src))
+           all_content46= os.listdir(target_path46)
+        except:
+           print("0")
+
+        #12B
+        try:
+           target_path47=os.path.join(r"\\10.32.23.23\PVCTData\ClassA\2022_"+str(src))
+           all_content47= os.listdir(target_path47)
+           target_path48=os.path.join(r"\\10.32.23.23\PVCTData\ClassB\2022_"+str(src))
+           all_content48= os.listdir(target_path48)  
+        except:
+           print("0")
+
+        #13A
+        try:
+           target_path49=os.path.join(r"\\10.32.24.22\PVCTData\ClassA\2022_"+str(src))
+           all_content49= os.listdir(target_path49)
+           target_path50=os.path.join(r"\\10.32.24.22\PVCTData\ClassB\2022_"+str(src))
+           all_content50= os.listdir(target_path50)
+        except:
+           print("0")
+
+        #13B
+        try:
+            target_path51=os.path.join(r"\\10.32.24.23\PVCTData\ClassA\2022_"+str(src))
+            all_content51= os.listdir(target_path51)
+            target_path52=os.path.join(r"\\10.32.24.23\PVCTData\ClassB\2022_"+str(src))
+            all_content52= os.listdir(target_path52)
+        except:
+           print("0")
+
+        #14A
+        try:
+           target_path53=os.path.join(r"\\10.32.25.22\PVCTData\ClassA\2022_"+str(src))
+           all_content53= os.listdir(target_path53)
+           target_path54=os.path.join(r"\\10.32.25.22\PVCTData\ClassB\2022_"+str(src))
+           all_content54= os.listdir(target_path54)      
+        except:
+           print("0")
+
+        #14B
+        try:
+           target_path55=os.path.join(r"\\10.32.25.23\PVCTData\ClassA\2022_"+str(src))
+           all_content55= os.listdir(target_path55)
+           target_path56=os.path.join(r"\\10.32.25.23\PVCTData\ClassB\2022_"+str(src))
+           all_content56= os.listdir(target_path56 )
+        except:
+           print("0")
+
+        #15A
+        try:
+           target_path57=os.path.join(r"\\10.32.26.22\PVCTData\ClassA\2022_"+str(src))
+           all_content57= os.listdir(target_path57)
+           target_path58=os.path.join(r"\\10.32.26.22\PVCTData\ClassB\2022_"+str(src))
+           all_content58= os.listdir(target_path58)
+        except:
+           print("0")
+
+        #15B
+        try:
+           target_path59=os.path.join(r"\\10.32.26.23\PVCTData\ClassA\2022_"+str(src))
+           all_content59= os.listdir(target_path59)
+           target_path60=os.path.join(r"\\10.32.26.23\PVCTData\ClassB\2022_"+str(src))
+           all_content60= os.listdir(target_path60)
+        except:
+           print("0")
+
+        #16A
+        try:
+            target_path61=os.path.join(r"\\10.32.27.22\PVCTData\ClassA\2022_"+str(src))
+            all_content61= os.listdir(target_path61)
+            target_path62=os.path.join(r"\\10.32.27.22\PVCTData\ClassB\2022_"+str(src))
+            all_content62= os.listdir(target_path62)
+        except:
+           print("0")
+
+        #16B
+        try:
+           target_path63=os.path.join(r"\\10.32.27.23\PVCTData\ClassA\2022_"+str(src))
+           all_content63= os.listdir(target_path63)
+           target_path64=os.path.join(r"\\10.32.27.23\PVCTData\ClassB\2022_"+str(src))
+           all_content64= os.listdir(target_path64)
+        except:
+           print("0")
+           
+
+      
+
+      
+
+
+
+            
+        if src:
+            try:
+                
+                #输出到界面
+                try:
+                   yl.result_data_Text.insert(1.0,"16B"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content63)))+" "+str(int(len(all_content64))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"16B"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:
+                   yl.result_data_Text.insert(1.0,"16A"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content61)))+" "+str(int(len(all_content62))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"16A"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:
+                   yl.result_data_Text.insert(1.0,"15B"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content59)))+" "+str(int(len(all_content60))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"15B"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:
+                   yl.result_data_Text.insert(1.0,"15A"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content57)))+" "+str(int(len(all_content58))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"15A"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"14B"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content55)))+" "+str(int(len(all_content56))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"14B"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+                
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"14A"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content53)))+" "+str(int(len(all_content54))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"14A"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+                   
+                try:  
+                   yl.result_data_Text.insert(1.0,"13B"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content51)))+" "+str(int(len(all_content52))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"13B"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"13A"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content49)))+" "+str(int(len(all_content50))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"13A"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"12B"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content47)))+" "+str(int(len(all_content48))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"12B"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"12A"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content45)))+" "+str(int(len(all_content46))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"12A"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"11B"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content43)))+" "+str(int(len(all_content44))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"11B"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"11A"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content41)))+" "+str(int(len(all_content42))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"11A"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"10B"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content39)))+" "+str(int(len(all_content40))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"10B"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"10A"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content37)))+" "+str(int(len(all_content38))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"10A"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"9B"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content35)))+" "+str(int(len(all_content36))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"9B"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"9A"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content33)))+" "+str(int(len(all_content34))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"9A"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"8B"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content31)))+" "+str(int(len(all_content32))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"8B"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"8A"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content29)))+" "+str(int(len(all_content30))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"8A"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"7B"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content27)))+" "+str(int(len(all_content28))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"7B"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"7A"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content25)))+" "+str(int(len(all_content26))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"7A"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"6B"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content23)))+" "+str(int(len(all_content24))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"6B"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"6A"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content21)))+" "+str(int(len(all_content22))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"6A"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"5B"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content19)))+" "+str(int(len(all_content20))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"5B"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"5A"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content17)))+" "+str(int(len(all_content18))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"5A"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"4B"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content15)))+" "+str(int(len(all_content16))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"4B"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"4A"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content13)))+" "+str(int(len(all_content14))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"4A"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"3B"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content11)))+" "+str(int(len(all_content12))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"3B"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"3A"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content9)))+" "+str(int(len(all_content10))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"3A"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"2B"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content7)))+" "+str(int(len(all_content8))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"2B"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:
+                   yl.result_data_Text.insert(1.0,"2A"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content5)))+" "+str(int(len(all_content6))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"2A"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"1B"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content3)))+" "+str(int(len(all_content4))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"1B"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                try:  
+                   yl.result_data_Text.insert(1.0,"1A"+" "+str(src)+" "+"时段A B级片数量为"+str(int(len(all_content)))+" "+str(int(len(all_content2))-1)+"\n")
+                except:
+                   yl.result_data_Text.insert(1.0,"1A"+" "+str(src)+" "+"时段A B级片数量为0 0"+"\n")
+
+                #print("dada",len(all_content))
+                #print(str(yl.result.data_Text.insert))
+                #yl.result_data_Text.delete(2.0,END)
+                #yl.result_data_Text.insert(1.0,myMd5_Digest)
+                yl.write_log_to_Text("获取当前时段数据成功")
+                
+                
+                #yl.result_data_Text.insert(1.0,str(src))
+
+
+                
+            except:
+                yl.result_data_Text.delete(1.0,END)
+                yl.result_data_Text.insert(1.0,"输出失败")
+                #print("dada",len(all_content))
+                #print("yl.result.data_Text")
+        else:
+            yl.write_log_to_Text("ERROR:str_trans_to_md5 failed")
+
+
+    #获取当前时间
+    def get_current_time(yl):
+        current_time = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+        return current_time
+
+
+    #日志动态打印
+    def write_log_to_Text(yl,logmsg):
+        global LOG_LINE_NUM
+        current_time = yl.get_current_time()
+        logmsg_in = str(current_time) +" " + str(logmsg) + "\n"      #换行
+        if LOG_LINE_NUM <= 7:
+            yl.log_data_Text.insert(END, logmsg_in)
+            LOG_LINE_NUM = LOG_LINE_NUM + 1
+        else:
+            yl.log_data_Text.delete(1.0,2.0)
+            yl.log_data_Text.insert(END, logmsg_in)
+
+
+def gui_start():
+    init_window = Tk()              #实例化出一个父窗口
+    ZMJ_PORTAL = MY_GUI(init_window)
+    # 设置根窗口默认属性
+    ZMJ_PORTAL.set_init_window()
+
+    init_window.mainloop()          #父窗口进入事件循环，保持窗口运行，否则界面不展示
+
+
+gui_start()
